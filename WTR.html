@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>ระบบลงเวลาทำงาน WTR</title>
+  <script src="https://d.line-scdn.net/liff/1.0/sdk.js"></script>
+  <script src="jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> <!-- swalคือalertแบบสวยงาม -->
+  <link href="bootstrap.min.css" rel="stylesheet" />
+
+  <style>
+    #pictureUrl {
+      display: block;
+      margin: 0 auto;
+    }
+  </style>
+
+
+
+</head>
+
+<body>
+  <!-- <div style="background-color: rgb(185, 214, 243,0);padding:15px;">
+
+  </div> -->
+
+  <header>
+    <div class="container" align="center">
+      <h3><img src="./Photo/d93ce92db719a2a702fb1e303b7b57981283300926_large.png" alt="hamtaro" width="5%">Bangkok Unitrade
+        <img src="./Photo/d93ce92db719a2a702fb1e303b7b57981283300926_large.png" alt="hamtaro" width="5%"></h3>
+
+    </div>
+  </header>
+
+  <section>
+    <!-- <div class="col-6 col-sm-6 col-md-6 col-lg-6" align="center"> -->
+    <!-- show profile -->
+    <div class="container" align="center">
+      <div class="row text-center">
+        <img id="pictureUrl" width="25%" />
+      </div>
+      <p>
+      </p>
+      <b>
+        <div class="container" align="center">
+          <p id="name"></p> <!-- แสดงชื่อ -->
+        </div>
+        <div class="container" align="center">
+          <p id="position"></p><!-- แสดงตำแหน่ง -->
+        </div>
+        <div class="container" align="center">
+          <p id="endpoint"></p> <!-- แสดงที่หมาย -->
+        </div>
+        <div class="container" align="center">
+          <p id="distance"></p> <!-- แสดงระยะทาง -->
+        </div>
+      </b>
+
+    </div>
+    <br>
+    <hr>
+
+    <!-- check in-out -->
+
+    <!-- <div class="container">
+    <div class="row text-center">
+      <img id="pictureUrl" width="25%" />
+    </div>
+    <div class="row text-center" hidden>
+      <p id="userId"></p>
+    </div>
+    <div class="row text-center">
+      <p id="displayName"></p>
+    </div>
+    <div class="row text-center">
+      <p id="statusMessage"></p>
+    </div>
+    <div class="row text-center">
+      <p id="getDecodedIDToken"></p>
+    </div>
+    <div class="row text-center">
+      <p id="distance"></p>
+    </div>
+
+
+  </div> -->
+    <div class="container" align="center">
+
+      <!-- check in -->
+      <div class="col-6 col-sm-6 col-md-6 col-lg-6">
+        <button type="button" id="checkin" onclick="document.getElementById('checkin').disabled = true;
+          document.getElementById('checkin').style.opacity='0.5';">
+          <!-- onclick เพื่อป้องกันการกดเบิ้ล -->
+          <!-- <a href="check-in.php"> -->
+          <img src="Photo/clock.png" alt="checkin" class="img-fluid rounded mx-auto d-block img-fluid" width="200px" height="200px" />
+          <!-- </a> -->
+        </button>
+      </div>
+      <!-- check out -->
+      <!-- <div hidden class="col-6 col-sm-6 col-md-6 col-lg-6"> -->
+      <!-- onclick เพื่อป้องกันการกดเบิ้ล -->
+      <!-- <button type="button" id="checkOut" onclick="document.getElementById('checkOut').disabled = true;
+          document.getElementById('checkOut').style.opacity='0.5';"> -->
+
+      <!-- <a href="check-out.php"> -->
+      <!-- <img src="Photo/checkout4.png" alt="checkout" class="img-fluid rounded mx-auto d-block" width="200px" height="200px" /> -->
+      <!-- </a> -->
+      <!-- </button>
+    </div> -->
+
+    </div>
+    <!-- </div> -->
+  </section>
+
+
+  <script src="jquery.min.js"></script>
+
+  <script>
+    $("#checkin").hide();
+    $("#checkOut").hide();
+  </script>
+  <script src="https://static.line-scdn.net/liff/edge/versions/2.3.0/sdk.js"></script> <!-- liff line -->
+  <script src="button.js"></script> <!-- action ปุ่ม -->
+  <script src="getproflie.js"></script> <!-- show profile -->
+  <script src="distance.js"></script> <!-- คำนวนระยะทาง -->
+
+</body>
+
+</html>
