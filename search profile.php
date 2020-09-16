@@ -6,14 +6,14 @@ if (isset($_POST["usermId"])) {
 
   // include('profile.php');
   $userId = $_POST["usermId"];
-  // $m_line = "Uc7026ba61505c5e3ae2877cbda30e3a0";
-  $sql = "SELECT * FROM tbl_emp WHERE m_line='$userId' ";
+  // $userid = "Uc7026ba61505c5e3ae2877cbda30e3a0";
+  $sql = "SELECT * FROM student WHERE userid='$userId' ";
   // echo ""
   $result = mysqli_query($condb, $sql);
   $rowm = mysqli_fetch_array($result);
 
-  $name = $rowm['m_nameTitle'] . " " . $rowm['m_firstname'] . ' ' . $rowm['m_lastname'];
-  $position = $rowm['m_position'];
-  $level = $rowm['m_level'];
+  $name = $rowm['name_title'] . " " . $rowm['fname'] . ' ' . $rowm['lname'];
+  $position = $rowm['sposition'];
+  $level = $rowm['level'];
   echo "$name,$position,$level";
 }

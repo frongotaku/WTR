@@ -8,14 +8,14 @@ if (isset($_POST["usermId"])) {
   // include('profile.php');
   $userId = $_POST["usermId"];
 
-  $sql = "SELECT * FROM tbl_emp WHERE m_line='$userId' ";
+  $sql = "SELECT * FROM student WHERE userid='$userId' ";
 
   // echo ""
   $result = mysqli_query($condb, $sql);
   $rowm = mysqli_fetch_array($result);
   $point = $rowm['location_name'];
 
-  $sql1 = "select  e.m_line, l.longitude,l.latitude from location l , tbl_emp e where  e.m_line = '$userId' and l.location_name = '$point' ";
+  $sql1 = "select  s.userid, l.longitude,l.latitude from location l , student s where  s.userid = '$userId' and l.location_name = '$point' ";
   $result1 = mysqli_query($condb, $sql1);
   $rowm1 = mysqli_fetch_array($result1);
   $endpoint = "จุดหมาย : " . $point;

@@ -19,7 +19,7 @@ function runApp() {
       document.getElementById("pictureUrl").src = profile.pictureUrl;
       id = profile.userId;
 
-      email = liff.getDecodedIDToken().email;
+      // email = liff.getDecodedIDToken().email;
       // console.log(id);
       getprofile(id);
       endlocation(id);
@@ -42,7 +42,7 @@ function getprofile(id) {
         var res = result.split(",");
         document.getElementById("name").innerHTML = res[0];
         document.getElementById("position").innerHTML = "ตำแหน่ง : " + res[1];
-        document.getElementById("userid").innerHTML=id;
+        // document.getElementById("userid").innerHTML=id;
       } else {
         console.log("เข้า");
         // window.close
@@ -52,27 +52,10 @@ function getprofile(id) {
 }
 // function Report(id) {
 //   $.ajax({
-//     url: "form.php",
+//     url: "getid.php",
 //     type: "POST",
 //     data: {
 //       userId: id,
-//     },
-//     success: function () {
-//       // console.log(result);
-//       console.log(id);
-//       if (result != "null") {
-//         document.getElementById("userid").innerHTML=id;
-//         // swal({
-//         //   title: "บันทึกข้อมูลเรียบร้อยแล้ว",
-//         //   text: result,
-//         //   icon: "success",
-//         //   button: "Yeah!",
-//         // });
-//         console.log("ผ่าน");
-//       } else {
-//         console.log("เข้า");
-//         // window.close
-//       }
 //     },
 //   });
 // }

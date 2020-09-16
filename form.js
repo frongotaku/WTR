@@ -1,4 +1,14 @@
-function formreport() {
+function Report(id) {
+  $.ajax({
+    url: "getid.php",
+    type: "POST",
+    data: {
+      userId: id,
+    },
+  });
+}
+
+$("#submit").click(function () {
   liff.init(
     {
       liffId: "1654474033-wYMyONgd",
@@ -7,54 +17,68 @@ function formreport() {
       .getProfile()
       .then((profile) => {
         id = profile.userId;
-
-        // email = liff.getDecodedIDToken().email;
+        insert(id);
       })
       .catch((err) => {
         console.log("error", err);
       })
   );
+});
 
-  var week = document.forms["formreport"]["week"].value;
-  var date_work = document.forms["formreport"]["date"].value;
-  var hour = document.forms["formreport"]["hour"].value;
-  var description = document.forms["formreport"]["description"].value;
-  var knowledge = document.forms["formreport"]["knowledge"].value;
-  var problem = document.forms["formreport"]["problem"].value;
-  if (week == "") {
-    alert("Name must be filled out");
-    return false;
-  }
-  console.log(id);
-  Report(id, week, date_work, hour, description, knowledge, problem);
-}
-function Report(id, week, date_work, hour, description, knowledge, problem) {
+function insert(id) {
+  var id = id;
+  var week = $("#myform").find('input[name="week"]').val();
+  var date_work = $("#myform").find('input[name="date"]').val();
+  var hour = $("#myform").find('input[name="hour"]').val();
+  var description = $("#myform").find('input[name="description"]').val();
+  var knowledge = $("#myform").find('input[name="knowledge"]').val();
+  var problem = $("#myform").find('input[name="problem"]').val();
+  // console.log(id);
+  // console.log(week);
+  // console.log(date_work);
+  // console.log(hour);
+  // console.log(description);
+  // console.log(knowledge);
+  // console.log(problem);
   $.ajax({
     url: "forminsert.php",
     type: "POST",
     data: {
-      usermId: id,
+      userId: id,
       week: week,
-      date_work: date_work,
+      date: date_work,
       hour: hour,
       description: description,
       knowledge: knowledge,
       problem: problem,
     },
+
     success: function (result) {
-      // console.log(result);
-      console.log(id);
-      if (result != "null") {
+      if (result == 0) {
         swal({
-          title: "บันทึกข้อมูลเรียบร้อยแล้ว",
-          text: result,
+          title: "บันทึกข้อมูลสำเร็จ",
+          text: "",
           icon: "success",
           button: "Yeah!",
+        }).then((value) => {
+          location.reload();
         });
-        console.log("ผ่าน");
-      } else {
-        console.log("เข้า");
-        // window.close
+      } else if (result == 1) {
+        swal({
+          title: "บันทึกข้อมูลผิดพลาด",
+          text: "กรุณาลองอีกครั้ง",
+          icon: "error",
+          button: "Yeah!",
+        });
+      } else if (result == 2) {
+        swal({
+          title: "คุณได้ลงบันทึกไว้แล้ว",
+          text: "กรุณาเลือกวันอื่น",
+          icon: "error",
+          button: "Yeah!",
+        }).then((value) => {
+          window.close();
+        });
       }
     },
   });
