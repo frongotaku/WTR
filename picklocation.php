@@ -71,7 +71,7 @@
                     require "config.php";
                     $conn = new mysqli($host, $user, $password, $database);
                     mysqli_set_charset($conn, "utf8");
-                    $sql1 = "SELECT * FROM heroku_ca4ecde9fd95ba6.tbl_emp";
+                    $sql1 = "SELECT * FROM heroku_ca4ecde9fd95ba6.student";
                     $result1 = mysqli_query($conn, $sql1); ?>
 
                     <!-- เลือกนักศึกษา -->
@@ -79,8 +79,8 @@
                         <?php
                         while ($row1 = mysqli_fetch_array($result1)) {
                         ?>
-                            <option value="<?php echo $row1['m_line']; ?>">
-                                <?php echo $row1['m_firstname']; ?><?php echo ' ' . $row1['m_lastname']; ?>
+                            <option value="<?php echo $row1['userid']; ?>">
+                                <?php echo $row1['fname']; ?><?php echo ' ' . $row1['lname']; ?>
                             </option>";
                         <?php } ?>
                     </select>
@@ -107,12 +107,88 @@
                 <br />
             </div>
         </div>
-        <?php
+        <script src="jquery.min.js"></script>
+        <script src="https://static.line-scdn.net/liff/edge/versions/2.3.0/sdk.js"></script>
+        <script>
+            liff.init({
+                    liffId: "1654474033-WpmdOQE1",
+                },
+                () => {
+                    if (liff.isLoggedIn()) {
+                        runApp();
+                    } else {
+                        liff.login();
+                    }
+                },
+                (err) => console.error(err.code, error.message)
+            );
 
+            function runApp() {
+                liff
+                    .getProfile()
+                    .then((profile) => {
+                        id = profile.userId;
+                        console.log(id);
+                        getprofile(id);
+
+                    })
+                    .catch((err) => {
+                        console.log("error", err);
+                    });
+            }
+
+            function getprofile(id) {
+                console.log(id);
+
+                $.ajax({
+                    url: "picklocation.php",
+                    type: "POST",
+                    data: {
+                        userId: id,
+                    },
+                    success: function(result) {
+                        if (result == '<br>') {
+                            swal({
+                                title: "คุณไม่มีสิทธิ์",
+                                text: "คุณไม่สามารถเปลี่ยนสถานที่ได้",
+                                icon: "Error",
+                                button: "OK!",
+                            }).then((value) => {
+                                liff.closeWindow();
+                            });
+                        }
+                    },
+                });
+            }
+        </script>
+        <?php
         if (isset($_POST['submit'])) {
 
-            update();
+            if (isset($_POST['userId'])) {
+                $id = $_POST['userId'];
+                require "config.php";
+
+                $conn = new mysqli($host, $user, $password, $database);
+                // เช็คว่าต่อติดมั้ย
+                // if ($conn->connect_error) {
+                //     echo "Failed to connect to MySQL: " . $conn->connect_error;
+                // } else {
+                //     echo "Success!!!";
+                // }
+                mysqli_set_charset($conn, "utf8");
+
+                $sql = "SELECT count(*)  FROM tbl_emp where m_line = '$id'";
+                $res = mysqli_query($conn, $sql);
+                $data = mysqli_fetch_array($res);
+                if ($data[0] != 0) {
+                    update();
+                }
+            } else {
+                echo '<br>';
+            }
         }
+
+
 
         function update()
         {
@@ -140,7 +216,7 @@
                 }
 
 
-                $sqlU = "UPDATE heroku_ca4ecde9fd95ba6.tbl_emp SET location_name='$location' WHERE m_line='$id'";
+                $sqlU = "UPDATE student SET location_name='$location' WHERE userid='$id'";
                 $resultU = mysqli_query($conn, $sqlU);
 
                 if ($conn->query($sqlU) === TRUE) {
@@ -148,11 +224,22 @@
                     <script>
                         console.log(<?php $resultU; ?>);
                         swal({
-                            title: "บันทึกข้อมูลเรียบร้อยแล้ว",
-                            text: "",
+                            title: "บันทึกข้อมูลสำเร็จ",
+                            text: "ต้องการใช้งานอีกรอบหรือไม่?",
                             icon: "success",
-                            button: "Yeah!",
-                        })
+                            buttons: {
+                                cancel: "No",
+                                Yes: true,
+                            },
+                        }).then((value) => {
+                            switch (value) {
+                                case "Yes":
+                                    window.location.reload();
+                                    break;
+                                default:
+                                    liff.closeWindow();
+                            }
+                        });
                     </script>
                 <?php
                 } else {
@@ -170,6 +257,7 @@
         <?php }
 
             $conn->close();
+            echo "<p>";
         }
         ?>
 
