@@ -1,210 +1,274 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="bootstrapregis.css" rel="stylesheet" id="bootstrap-css" />
+    <script src="jquery.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <title>Regis Employee</title>
+    <style>
+      .register {
+        background: -webkit-linear-gradient(left, #3931af, #00c6ff);
+        margin-top: 3%;
+        padding: 3%;
+      }
 
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <title>Daily Form</title>
-  <script src="https://d.line-scdn.net/liff/1.0/sdk.js"></script>
-  <script src="jquery.min.js"></script>
-  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <!-- swalคือalertแบบสวยงาม -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      .register-left {
+        text-align: center;
+        color: #fff;
+        margin-top: 4%;
+      }
 
-  <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/themes/base/jquery-ui.css" rel="stylesheet" />
-  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js"></script>
-  <style>
-    body {
-      margin: 0;
-      /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-        "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
-        "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-      font-size: 1rem;
-      font-weight: 400;
-      line-height: 1.5; */
-      color: #212529;
-      /* text-align: left; */
-      background-color: #DAFAE9;
-    }
+      .register-left input {
+        border: none;
+        border-radius: 1.5rem;
+        padding: 2%;
+        width: 60%;
+        background: #f8f9fa;
+        font-weight: bold;
+        color: #383d41;
+        margin-top: 30%;
+        margin-bottom: 3%;
+        cursor: pointer;
+      }
 
-    header {
-      padding: 10px 10px;
-      margin-bottom: 10px;
-      background-color: #ABEFFA;
-      border-radius: 0.3rem;
-    }
+      .register-right {
+        background: #f8f9fa;
+        border-top-left-radius: 10% 50%;
+        border-bottom-left-radius: 10% 50%;
+      }
 
-    #pictureUrl {
-      display: block;
-      margin: 0 auto;
-    }
+      .register-left img {
+        margin-top: 15%;
+        margin-bottom: 5%;
+        width: 25%;
+        -webkit-animation: mover 2s infinite alternate;
+        animation: mover 1s infinite alternate;
+      }
 
-    form {
-      border: 3px solid #f1f1f1;
-    }
+      @-webkit-keyframes mover {
+        0% {
+          transform: translateY(0);
+        }
 
-    select {
-      width: 100%;
-      padding: 12px 20px;
-      margin: 8px 0;
-      display: inline-block;
-      border: 1px solid #ccc;
-      box-sizing: border-box;
-      background-color: rgba(255, 255, 255, 0.884);
-    }
+        100% {
+          transform: translateY(-20px);
+        }
+      }
 
-    input[type="text"],
-    input[type="password"],
-    input[type="date"] {
-      width: 100%;
-      padding: 12px 20px;
-      margin: 8px 0;
-      display: inline-block;
-      border: 1px solid #ccc;
-      box-sizing: border-box;
-      background-color: rgba(255, 255, 255, 0.884);
-    }
+      @keyframes mover {
+        0% {
+          transform: translateY(0);
+        }
 
-    input[type="text"]:focus,
-    input[type="password"]:focus {
-      background-color: rgb(236, 236, 236);
-      outline: none;
-    }
+        100% {
+          transform: translateY(-20px);
+        }
+      }
 
-    button {
-      background-color: #4caf50;
-      color: white;
-      padding: 14px 20px;
-      margin: 8px 0;
-      border: none;
-      cursor: pointer;
-      width: 100%;
-    }
+      .register-left p {
+        font-weight: lighter;
+        padding: 12%;
+        margin-top: -9%;
+      }
 
-    button:hover {
-      opacity: 0.8;
-    }
+      .register .register-form {
+        padding: 10%;
+        margin-top: 10%;
+      }
 
-    .cancelbtn {
-      width: auto;
-      padding: 10px 18px;
-      background-color: #f44336;
-    }
+      .btnRegister {
+        float: right;
+        margin-top: 10%;
+        border: none;
+        border-radius: 1.5rem;
+        padding: 2%;
+        background: #0062cc;
+        color: #fff;
+        font-weight: 600;
+        width: 50%;
+        cursor: pointer;
+      }
 
-    .imgcontainer {
-      text-align: center;
-      margin: 24px 0 12px 0;
-    }
+      .register .nav-tabs {
+        margin-top: 3%;
+        border: none;
+        background: #0062cc;
+        border-radius: 1.5rem;
+        width: 28%;
+        float: right;
+      }
 
-    img.avatar {
-      width: 30%;
-      border-radius: 10%;
-    }
+      .register .nav-tabs .nav-link {
+        padding: 2%;
+        height: 34px;
+        font-weight: 600;
+        color: #fff;
+        border-top-right-radius: 1.5rem;
+        border-bottom-right-radius: 1.5rem;
+      }
 
-    .container {
-      padding: 16px;
-    }
+      .register .nav-tabs .nav-link:hover {
+        border: none;
+      }
 
-    span.psw {
-      float: right;
-      padding-top: 16px;
-    }
+      .register .nav-tabs .nav-link.active {
+        width: 100px;
+        color: #0062cc;
+        border: 2px solid #0062cc;
+        border-top-left-radius: 1.5rem;
+        border-bottom-left-radius: 1.5rem;
+      }
 
-    /* Change styles for span and cancel button on extra small screens */
-    @media screen and (max-width: 300px) {
-      span.psw {
+      .register-heading {
+        text-align: center;
+        margin-top: 8%;
+        margin-bottom: -15%;
+        color: #495057;
+      }
+
+      .left {
+        float: left;
+        margin: 8px 0px 0px -80px;
+      }
+
+      select {
+        border-radius: 8%;
+      }
+
+      #pictureUrl {
         display: block;
-        float: none;
+        margin: 0 auto;
       }
+    </style>
+  </head>
 
-      .cancelbtn {
-        width: 100%;
-      }
-    }
-  </style>
-</head>
+  <body class="container register">
+    <!------ Include the above in your HEAD tag ---------->
+    <section>
+      <div class="row">
+        <div class="col-md-3 register-left">
+          <img id="pictureUrl" width="25%" />
+          <h4 id="name"></h4>
+          <h4 id="position"></h4>
+        </div>
+        <div class="col-md-9 co register-right">
+          <div class="tab-content" id="myTabContent">
+            <div
+              class="tab-pane fade show active"
+              id="home"
+              role="tabpanel"
+              aria-labelledby="home-tab"
+            >
+              <h3 class="register-heading">Daily Report</h3>
 
-<body>
-  <header>
-    <div class="container" align="center">
-      <h3>
-        <img src="./Photo/d93ce92db719a2a702fb1e303b7b57981283300926_large.png" alt="hamtaro" width="5%" />Daily Report
-        <img src="./Photo/d93ce92db719a2a702fb1e303b7b57981283300926_large.png" alt="hamtaro" width="5%" />
-      </h3>
-    </div>
-  </header>
-  <section align="center" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 container">
+              <!-- <div class="row register-form"> -->
+              <form method="post" id="myform">
+                <div class="row register-form">
+                  <div class="col-md-6 col-xl-6">
+                    <div class="form-group">
+                      <input
+                        type="text"
+                        name="week"
+                        class="form-control"
+                        placeholder="สัปดาห์ที่"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <input
+                        type="date"
+                        name="date"
+                        class="form-control"
+                        placeholder="วัน/เดือน/ปี"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <input
+                        type="text"
+                        name="hour"
+                        class="form-control"
+                        placeholder="จำนวนชั่วโมง"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <input
+                        type="text"
+                        name="description"
+                        class="form-control"
+                        placeholder="งานที่ปฏิบัติโดยย่อ"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <input
+                        type="text"
+                        name="knowledge"
+                        class="form-control"
+                        placeholder="ความรู้/ทักษะที่ได้รับ"
+                      />
+                    </div>
 
-    <!-- Show Profile -->
-    <div align="center" class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 container">
-      <div class="row" align="center">
-        <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3"></div>
-        <img class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3" id="pictureUrl" width="25%" />
+                    <div class="form-group">
+                      <input
+                        type="text"
+                        name="problem"
+                        class="form-control"
+                        placeholder="ปัญหา/อุปสรรค"
+                      />
+                    </div>
+                    <button
+                    type="button"
+                    id="submit"
+                    name="submit"
+                    class="btnRegister"
+                    value="submit"
+                    text-align:
+                    center;
+                    
+                  >Submit</button>
 
-        <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-          <b>
-            <br>
-            <br>
-            <p id="name"></p>
-            <p id="position"></p>
-            <!-- <p id="userid"></p> -->
-          </b>
+                    <!-- <button
+                      type="onsubmit"
+                      id="submit"
+                      class="btn btn-info"
+                      name="submit"
+                    >
+                      submit
+                    </button> -->
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-    <hr />
-    </div>
+    </section>
+    <!-- liff line -->
+    <script src="https://static.line-scdn.net/liff/edge/versions/2.3.0/sdk.js"></script>
+    <!-- action ปุ่ม -->
+    <!-- <script src="button.js"></script> -->
+    <!-- show profile -->
 
-    <!-- Form report -->
-    <div class="container" align="center">
-      <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" align="center">
-        <form method="post"  id="myform">
-
-          <!-- <input type="text" id="userid" name="userid" placeholder="Userid" /> -->
-
-          <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-            
-            <br><br>
-            <label for="week"><b>สัปดาห์ที่</b></label>
-            <input type="text" placeholder="Enter Week" id="week" name="week" onKeyUp="if(this.value*1!=this.value) this.value='' ;" required />
-
-            <label for="date"><b>วัน/เดือน/ปี</b></label>
-            <input type="date" placeholder="Choose Date" id="date" name="date" required />
-
-            <label for="hour"><b>จำนวนชั่วโมง</b></label>
-            <input type="text" placeholder="Enter Hour" id="hour" name="hour" onKeyUp="if(this.value*1!=this.value) this.value='' ;" required />
-
-            <label for="description"><b>งานที่ปฏิบัติโดยย่อ</b></label>
-            <input type="text" placeholder="Enter Description" id="description" name="description" required />
-
-            <label for="knowledge"><b>ความรู้/ทักษะที่ได้รับ</b></label>
-            <input type="text" placeholder="Enter Knowledge" id="knowledge" name="knowledge" required />
-
-            <label for="problem"><b>ปัญหา/อุปสรรค</b></label>
-            <input type="text" placeholder="Enter Problem" id="problem" name="problem" />
-
-            <input type="onsubmit" name="submit" id="submit" class="btn btn-info" value="submit" />
-            <!-- <button onclick="submit();" id="submit" class="btn btn-info">Submit</button> -->
-
-          </div>
-        </form>
-      </div>
-    </div>
-  </section>
-  <!-- liff line -->
-  <script src="https://static.line-scdn.net/liff/edge/versions/2.3.0/sdk.js"></script>
-  <!-- action ปุ่ม -->
-  <!-- <script src="button.js"></script> -->
-  <!-- show profile -->
-  <script src="getproflie.js"></script>
-  <script src="form.js"></script>
-</body>
-
+    <script src="getproflie.js"></script>
+    <script>
+      liff.init(
+        {
+          liffId: "1654474033-lP6MvkJp",
+        },
+        () => {
+          if (liff.isLoggedIn()) {
+            runApp();
+          } else {
+            liff.login();
+          }
+        },
+        (err) => console.error(err.code, error.message)
+      );
+    </script>
+    <script src="form.js"></script>
+  </body>
 </html>
-
 
 <!-- Insert Report -->

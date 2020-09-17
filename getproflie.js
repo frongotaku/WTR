@@ -1,16 +1,4 @@
-liff.init(
-  {
-    liffId: "1654474033-wYMyONgd",
-  },
-  () => {
-    if (liff.isLoggedIn()) {
-      runApp();
-    } else {
-      liff.login();
-    }
-  },
-  (err) => console.error(err.code, error.message)
-);
+
 
 function runApp() {
   liff

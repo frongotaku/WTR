@@ -11,7 +11,7 @@ function Report(id) {
 $("#submit").click(function () {
   liff.init(
     {
-      liffId: "1654474033-wYMyONgd",
+      liffId: "1654474033-lP6MvkJp",
     },
     liff
       .getProfile()
@@ -33,53 +33,71 @@ function insert(id) {
   var description = $("#myform").find('input[name="description"]').val();
   var knowledge = $("#myform").find('input[name="knowledge"]').val();
   var problem = $("#myform").find('input[name="problem"]').val();
-  // console.log(id);
-  // console.log(week);
-  // console.log(date_work);
-  // console.log(hour);
-  // console.log(description);
-  // console.log(knowledge);
-  // console.log(problem);
-  $.ajax({
-    url: "forminsert.php",
-    type: "POST",
-    data: {
-      userId: id,
-      week: week,
-      date: date_work,
-      hour: hour,
-      description: description,
-      knowledge: knowledge,
-      problem: problem,
-    },
-
-    success: function (result) {
-      if (result == 0) {
-        swal({
-          title: "บันทึกข้อมูลสำเร็จ",
-          text: "",
-          icon: "success",
-          button: "Yeah!",
-        }).then((value) => {
-          location.reload();
-        });
-      } else if (result == 1) {
-        swal({
-          title: "บันทึกข้อมูลผิดพลาด",
-          text: "กรุณาลองอีกครั้ง",
-          icon: "error",
-          button: "Yeah!",
-        });
-      } else if (result == 2) {
-        swal({
-          title: "คุณได้ลงบันทึกไว้แล้ว",
-          text: "กรุณาเลือกวันอื่น",
-          icon: "error",
-          button: "Yeah!",
-        }).then((value) => {
-          window.close();
-        });
-      }
-    },
-  });
-}
+  console.log(id);
+  console.log(week);
+  console.log(date_work);
+  console.log(hour);
+  console.log(description);
+  console.log(knowledge);
+  console.log(problem);
+  
+    $.ajax({
+      url: "forminsert.php",
+      type: "POST",
+      data: {
+        userId: id,
+        week: week,
+        date: date_work,
+        hour: hour,
+        description: description,
+        knowledge: knowledge,
+        problem: problem,
+      },
+      success: function (result) {
+        if (result == 0) {
+          swal({
+            title: "บันทึกข้อมูลสำเร็จ",
+            text: "ต้องการกรอกเพิ่มหรือไม่?",
+            icon: "success",
+            buttons: {
+              cancel: "No",
+              Yes: true,
+            },
+          }).then((value) => {
+            switch (value) {
+              case "Yes":
+                window.location.reload();
+                break;
+              default:
+                liff.closeWindow();
+            }
+          });
+        } else if (result == 1) {
+          swal({
+            title: "บันทึกข้อมูลผิดพลาด",
+            text: "กรุณาลองอีกครั้ง",
+            icon: "error",
+            button: "OK!",
+          });
+        } else if (result == 2) {
+          swal({
+            title: "คุณได้ลงบันทึกไว้แล้ว",
+            text: "กรุณาเลือกวันอื่น",
+            icon: "error",
+            button: "OK!",
+          });
+        } else if (result == 3) {
+          swal({
+            title: "ไม่สามารถเพิ่มได้",
+            text: "ไม่มีชื่อนี้ในระบบครับ",
+            icon: "error",
+            button: "OK!",
+          }).then((value) => {
+            window.location.assign("https://liff.line.me/1654474033-PewaBzAe");
+          });
+        } else {
+          alert(result);
+        }
+      },
+    });
+  }

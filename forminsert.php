@@ -54,34 +54,42 @@ if ($userid != null && $week != null && $date_work != null && $hour != null && $
     //     echo "Success!!!";
     // }
     mysqli_set_charset($conn, "utf8");
-    $sql = "SELECT count(*)  FROM report where date_work = '$date_work'";
+
+
+    $sql = "SELECT count(*)  FROM student where userid = '$userid'";
     $res = mysqli_query($conn, $sql);
     $data = mysqli_fetch_array($res);
-    if ($data[0] != 0) {
-        $err = "คุณได้บันทึกไว้แล้ว";
-    }
-    if ($err != "") {
-        echo 2;
+
+    if ($data[0] == 0) {
+        echo 3;
     } else {
-        $sql = "INSERT INTO report (userid,week,hour,date_work,Description_work,Knowledge,Problem,TimeStamp,status)
+        $sql = "SELECT count(*)  FROM report where date_work = '$date_work'";
+        $res = mysqli_query($conn, $sql);
+        $data = mysqli_fetch_array($res);
+
+        if ($data[0] != 0) {
+            echo 2;
+        } else {
+
+            $sql = "INSERT INTO report (userid,weeks,hour,date_work,Description_work,Knowledge,Problem,TimeStamp,progress)
 VALUES ('$userid','$week', '$hour','$date_work', '$Description', '$knowledge', '$problem','$timestamp','$status')";
 
-        // $resultU = mysqli_query($conn, $sql);
+            // $resultU = mysqli_query($conn, $sql);
 
-        if ($conn->query($sql) === TRUE) {
-            // session_destroy();
-            echo 0;
-?>
-    <?php
-            $conn->close();
-        } else {
-            echo "Error updating record: " . $conn->error;
-        };
+            if ($conn->query($sql) === TRUE) {
+                // session_destroy();
+                echo 0;
+
+                $conn->close();
+            } else {
+                echo "Error updating record: " . $conn->error;
+            };
+        }
     }
 } else {
     // session_destroy();
     echo 1;
-    ?>
+?>
 <?php }
 // unset($_SESSION['userid']);
 
