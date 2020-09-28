@@ -81,15 +81,15 @@ function insert(id) {
           });
         } else if (result == 2) {
           swal({
-            title: "คุณได้ลงบันทึกไว้แล้ว",
+            title: "วันที่คุณเลือกได้ลงบันทึกไว้แล้ว",
             text: "กรุณาเลือกวันอื่น",
             icon: "error",
             button: "OK!",
           });
         } else if (result == 3) {
           swal({
-            title: "ไม่สามารถเพิ่มได้",
-            text: "ไม่มีชื่อนี้ในระบบครับ",
+            title: "คุณไม่สามารถเพิ่มได้",
+            text: "เพราะไม่มีชื่อนี้ในระบบครับ",
             icon: "error",
             button: "OK!",
           }).then((value) => {
