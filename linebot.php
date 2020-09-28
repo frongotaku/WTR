@@ -65,109 +65,219 @@ $displayImage = $LINEUserProfile['pictureUrl'];
 // ============================== ไว้เสิชprofile ================================ \\
 include('config.php');
 include('condb.php');
-$sql = "SELECT * FROM student where userid = '$userId'";
+$sql = "SELECT count(*)  FROM student where userid = '$userId'";
 $res = mysqli_query($conn, $sql);
 $data = mysqli_fetch_array($res);
+// เช็คว่ามีชื่อนศ.ในbase มัย้
+if ($data[0] != 0) {
+	$sql = "SELECT * FROM student where userid = '$userId'";
+	$res = mysqli_query($conn, $sql);
+	$data = mysqli_fetch_array($res);
 
-$SID = $data['stuid'];
-$name = $data['name_title'] . " " . $data['fname'] . ' ' . $data['lname'];
-$faculty = $data['faculty'];
-$position = $data['sposition'];
-$field = $data['field'];
-$semail = $data['semail'];
-$sphone = $data['sphone'];
-$sposition = $data['sposition'];
-$level = $data['level'];
-$location_name = $data['location_name'];
-
-$jsonFlex = [
-	"type" => "flex",
-	"altText" => "Flex Message",
-	"contents" => [
-		"type" => "bubble",
-		"direction" => "ltr",
-		"header" => [
-			"type" => "box",
-			"layout" => "vertical",
-			"backgroundColor" => "#08D9F5D3",
-			"contents" => [
-				[
-					"type" => "text",
-					"text" => "Profile",
-					"align" => "center",
-					"gravity" => "center",
-					"contents" => []
+	$SID = $data['stuid'];
+	$name = $data['name_title'] . " " . $data['fname'] . ' ' . $data['lname'];
+	$faculty = $data['faculty'];
+	$position = $data['sposition'];
+	$field = $data['field'];
+	$semail = $data['semail'];
+	$sphone = $data['sphone'];
+	$sposition = $data['sposition'];
+	$level = $data['level'];
+	$location_name = $data['location_name'];
+// Flexของนศ.
+	$jsonFlex = [
+		"type" => "flex",
+		"altText" => "MyProfile",
+		"contents" => [
+			"type" => "bubble",
+			"direction" => "ltr",
+			"header" => [
+				"type" => "box",
+				"layout" => "vertical",
+				"backgroundColor" => "#08D9F5D3",
+				"contents" => [
+					[
+						"type" => "text",
+						"text" => "Profile",
+						"align" => "center",
+						"gravity" => "center",
+						"contents" => []
+					]
 				]
-			]
-		],
-		"hero" => [
-			"type" => "image",
-			"url" => "$displayImage",
-			"size" => "full",
-			"aspectRatio" => "1.51:1",
-			"aspectMode" => "fit",
-			"backgroundColor" => "#AFF5C8FF"
-		],
-		"body" => [
-			"type" => "box",
-			"layout" => "vertical",
-			"backgroundColor" => "#AFF5C8FF",
-			"contents" => [
-				[
-					"type" => "text",
-					"text" => "รหัสนักศึกษา : " . $SID,
-					"contents" => []
-				],
-				[
-					"type" => "text",
-					"text" => "ชื่อ : " . $name,
-					"align" => "start",
-					"contents" => []
-				],
-				[
-					"type" => "text",
-					"text" => "คณะ : " . $faculty . " สาขา : " . $field,
-					"contents" => []
-				],
-				[
-					"type" => "text",
-					"text" => "เบอโทรศัพท์ : " . $sphone,
-					"contents" => []
-				],
-				[
-					"type" => "text",
-					"text" => "Email : " . $semail,
-					"contents" => []
-				],
-				[
-					"type" => "text",
-					"text" => "ตำแหน่ง : " . $position,
-					"contents" => []
-				],
-				[
-					"type" => "text",
-					"text" => "จุดเข้างาน : " . $location_name,
-					"contents" => []
-				]
-			]
-		],
-		"footer" => [
-			"type" => "box",
-			"layout" => "horizontal",
-			"contents" => [
-				[
-					"type" => "button",
-					"action" => [
-						"type" => "uri",
-						"label" => "Edit",
-						"uri" => "https://liff.line.me/1654474033-1qg3DGMd"
+			],
+			"hero" => [
+				"type" => "image",
+				"url" => "$displayImage",
+				"size" => "full",
+				"aspectRatio" => "1.51:1",
+				"aspectMode" => "fit",
+				"backgroundColor" => "#AFF5C8FF"
+			],
+			"body" => [
+				"type" => "box",
+				"layout" => "vertical",
+				"backgroundColor" => "#AFF5C8FF",
+				"contents" => [
+					[
+						"type" => "text",
+						"text" => "รหัสนักศึกษา : " . $SID,
+						"contents" => []
 					],
-					"color" => "#F7A6A6FF"
+					[
+						"type" => "text",
+						"text" => "ชื่อ : " . $name,
+						"align" => "start",
+						"contents" => []
+					],
+					[
+						"type" => "text",
+						"text" => "คณะ : " . $faculty . " สาขา : " . $field,
+						"contents" => []
+					],
+					[
+						"type" => "text",
+						"text" => "เบอโทรศัพท์ : " . $sphone,
+						"contents" => []
+					],
+					[
+						"type" => "text",
+						"text" => "Email : " . $semail,
+						"contents" => []
+					],
+					[
+						"type" => "text",
+						"text" => "ตำแหน่ง : " . $position,
+						"contents" => []
+					],
+					[
+						"type" => "text",
+						"text" => "จุดเข้างาน : " . $location_name,
+						"contents" => []
+					]
+				]
+			],
+			"footer" => [
+				"type" => "box",
+				"layout" => "horizontal",
+				"contents" => [
+					[
+						"type" => "button",
+						"action" => [
+							"type" => "uri",
+							"label" => "Edit",
+							"uri" => "https://liff.line.me/1654474033-1qg3DGMd"
+						],
+						"color" => "#F7A6A6FF"
+					]
 				]
 			]
 		]
-	]
-];
+	];
+} else if ($data[0] == 0) {
+	// เช็คว่ามีAdminคนนี้มั้ย
+	$sql = "SELECT count(*)  FROM tbl_emp where m_line = '$userId'";
+	$res = mysqli_query($conn, $sql);
+	$data = mysqli_fetch_array($res);
+	if ($data[0] != 0) {
+
+		$sql = "SELECT * FROM tbl_emp where m_line = '$userId'";
+		$res = mysqli_query($conn, $sql);
+		$data = mysqli_fetch_array($res);
+		$HID = $data['m_id'];
+	$name = $data['m_nameTitle'] . " " . $data['m_firstname'] . ' ' . $data['m_lastname'];
+	$position = $data['m_position'];
+	$email = $data['m_email'];
+	$phone = $data['m_phone'];
+	$position = $data['m_position'];
+	$level = $data['m_level'];
+	$location_name = $data['location_name'];
+// Flexของพนักงาน
+	$jsonFlex = [
+		"type" => "flex",
+		"altText" => "MyProfile",
+		"contents" => [
+			"type" => "bubble",
+			"direction" => "ltr",
+			"header" => [
+				"type" => "box",
+				"layout" => "vertical",
+				"backgroundColor" => "#08D9F5D3",
+				"contents" => [
+					[
+						"type" => "text",
+						"text" => "Profile",
+						"align" => "center",
+						"gravity" => "center",
+						"contents" => []
+					]
+				]
+			],
+			"hero" => [
+				"type" => "image",
+				"url" => "$displayImage",
+				"size" => "full",
+				"aspectRatio" => "1.51:1",
+				"aspectMode" => "fit",
+				"backgroundColor" => "#AFF5C8FF"
+			],
+			"body" => [
+				"type" => "box",
+				"layout" => "vertical",
+				"backgroundColor" => "#AFF5C8FF",
+				"contents" => [
+					[
+						"type" => "text",
+						"text" => "รหัสพนักงาน : " . $HID,
+						"contents" => []
+					],
+					[
+						"type" => "text",
+						"text" => "ชื่อ : " . $name,
+						"align" => "start",
+						"contents" => []
+					],
+					[
+						"type" => "text",
+						"text" => "เบอโทรศัพท์ : " . $phone,
+						"contents" => []
+					],
+					[
+						"type" => "text",
+						"text" => "Email : " . $email,
+						"contents" => []
+					],
+					[
+						"type" => "text",
+						"text" => "ตำแหน่ง : " . $position,
+						"contents" => []
+					],
+					[
+						"type" => "text",
+						"text" => "จุดเข้างาน : " . $location_name,
+						"contents" => []
+					]
+				]
+			],
+			"footer" => [
+				"type" => "box",
+				"layout" => "horizontal",
+				"contents" => [
+					[
+						"type" => "button",
+						"action" => [
+							"type" => "uri",
+							"label" => "Edit",
+							"uri" => "https://liff.line.me/1654474033-1qg3DGMd"
+						],
+						"color" => "#F7A6A6FF"
+					]
+				]
+			]
+		]
+	];
+
+	} 
+}
 
 // $jsonDecodeFlex = json_decode($jsonFlex, true);
 
@@ -339,7 +449,47 @@ function checkmenu($id, $text)
 	if ($text == "More") {
 		$richmenuEmp = 'richmenu-3923e835702e47a286ca4ca52f655aa4';
 	} else if ($text == "Back") {
-		$richmenuEmp = 'richmenu-e7adf03d78a74618e62307a264221cde';
+		require "config.php";
+		$conn = new mysqli($host, $user, $password, $database);
+		$sql = "SELECT count(*)  FROM student where userid = '$id'";
+		$res = mysqli_query($conn, $sql);
+		$data = mysqli_fetch_array($res);
+		if ($data[0] != 0) {
+			$sql = "SELECT * FROM student where userid = '$id'";
+			$res = mysqli_query($conn, $sql);
+			$data = mysqli_fetch_array($res);
+
+
+			if ($data[10] == 'emp') {
+				$richmenuEmp = 'richmenu-e7adf03d78a74618e62307a264221cde';
+
+				/*Get Data From POST Http Request*/
+				// $datas = file_get_contents('php://input');
+				// /*Decode Json From LINE Data Body*/
+				// $messages = '';
+
+				// file_put_contents('log.txt', file_get_contents('php://input') . PHP_EOL, FILE_APPEND);
+
+				// $LINEDatas['url'] = "https://api.line.me/v2/bot/user/" . $id . "/richmenu" . "/" . $richmenuEmp;
+				// $LINEDatas['token'] = "Ybt8pl9LynUdSvMIcSlQiEvG+ZcXCHL2PEkhhgQ7HUm0JlSdS0t6N+3X5IxG4l21xjMqgpZlXGcv+yV6PathA4ppGc7RQdrjX/vvQZ7E6aURroy04yeUM4zbmJ2h+PdCByvFcAsEhDSf85m9YdsLMwdB04t89/1O/w1cDnyilFU=";
+			}
+		} else if ($data[0] == 0) {
+			$sql = "SELECT count(*)  FROM tbl_emp where m_line = '$id'";
+			$res = mysqli_query($conn, $sql);
+			$data = mysqli_fetch_array($res);
+			if ($data[0] != 0) {
+
+				$richmenuEmp = 'richmenu-36faa757e62df4a71b7e4f7be5c427d9';
+
+				// $datas = file_get_contents('php://input');
+				// $messages = '';
+
+				// file_put_contents('log.txt', file_get_contents('php://input') . PHP_EOL, FILE_APPEND);
+
+				// $LINEDatas['url'] = "https://api.line.me/v2/bot/user/" . $id . "/richmenu" . "/" . $richmenuManeger;
+				// $LINEDatas['token'] = "Ybt8pl9LynUdSvMIcSlQiEvG+ZcXCHL2PEkhhgQ7HUm0JlSdS0t6N+3X5IxG4l21xjMqgpZlXGcv+yV6PathA4ppGc7RQdrjX/vvQZ7E6aURroy04yeUM4zbmJ2h+PdCByvFcAsEhDSf85m9YdsLMwdB04t89/1O/w1cDnyilFU=";
+			}
+		}
 	}
 	$LINEDatas['url'] = "https://api.line.me/v2/bot/user/" . $id . "/richmenu" . "/" . $richmenuEmp;
 	$LINEDatas['token'] = "Ybt8pl9LynUdSvMIcSlQiEvG+ZcXCHL2PEkhhgQ7HUm0JlSdS0t6N+3X5IxG4l21xjMqgpZlXGcv+yV6PathA4ppGc7RQdrjX/vvQZ7E6aURroy04yeUM4zbmJ2h+PdCByvFcAsEhDSf85m9YdsLMwdB04t89/1O/w1cDnyilFU=";
